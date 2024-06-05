@@ -33,27 +33,27 @@ def generate(device, model, tokenizer, prompt):
     return generated_text
     
 def main():
-    # bot = commands.Bot(command_prefix='!')
-
-    # @bot.event
-    # async def on_ready():
-    #     print(f'Logged in as {bot.user.name}')
-
-    # @bot.command()
-    # async def talk(ctx, *, prompt: str):
-    #     response = generate(device, model, prompt)
-    #     await ctx.send(response)
     device, model, tokenizer = setup()
+   
+    intents = discord.Intents().all()
 
-    done = False
-    while not done:
-        prompt = input("Q: ")
-        if prompt == "STOP":
-            done = True
-            continue
+    bot = commands.Bot(command_prefix='!', intents=intents)
+
+    @bot.event
+    async def on_ready():
+        print(f'Logged in as {bot.user.name}')
+
+    @bot.command()
+    async def dumb(ctx, *, prompt: str):
         response = generate(device, model, tokenizer, prompt)
-        print("-------- OUTPUT --------")
-        print(response[len(prompt):])
-        print("------------------------")
+        await ctx.send(response)
+
+    @bot.command()
+    @commands.is_owner()
+    async def shutdown(ctx):
+        await ctx.send("Shutting down...")
+        exit()
+
+    bot.run("MTI0Nzk3NzkyNzUyMjUyMTIxMQ.G0iN_e.Ekp2i0jnx-3Ny5EBpTdytmzlPPSL-rowgBjQkI")
 
 main()
