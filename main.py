@@ -10,7 +10,11 @@ def setup():
 
     model = GPT2LMHeadModel.from_pretrained("gpt2").to(device)
 
-def generate(device, model, prompt):
+    tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+
+    return device, model, tokenizer
+
+def generate(device, model, tokenizer, prompt):
     input_ids = tokenizer.encode(prompt, return_tensors='pt').to(device)
 
     output = model.generate(
@@ -36,11 +40,16 @@ def main():
     # async def talk(ctx, *, prompt: str):
     #     response = generate(device, model, prompt)
     #     await ctx.send(response)
-    setup()
+    device, model, tokenizer = setup()
 
-    prompt = "to be or not to be"
-
-    response = generate(device, model, prompt)
-    print(response)
+    done = False
+    while not done:
+        prompt = input("Q: ")
+        if prompt == "STOP":
+            done = True
+            continue
+        response = generate(device, model, tokenizer, prompt)
+        print("-------- OUTPUT --------")
+        print(response[len(prompt):])
 
 main()
