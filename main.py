@@ -8,8 +8,6 @@ def setup():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("Running on", device)
 
-    #torch.set_warn_always(False)
-
     model = GPT2LMHeadModel.from_pretrained("gpt2").to(device)
 
     tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
