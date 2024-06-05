@@ -1,8 +1,11 @@
+import os
 import discord
 from discord.ext import commands
 import torch
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def setup():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -45,7 +48,8 @@ def main():
 
     @bot.command()
     async def dumb(ctx, *, prompt: str):
-        response = generate(device, model, tokenizer, prompt)
+        async with ctx.typing():
+            response = generate(device, model, tokenizer, prompt)
         await ctx.send(response)
 
     @bot.command()
@@ -54,6 +58,7 @@ def main():
         await ctx.send("Shutting down...")
         exit()
 
-    bot.run(DISCORD_TOKEN)
+    token = os.environ.get("DISCORD_TOKEN")
+    bot.run(token)
 
 main()
