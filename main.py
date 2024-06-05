@@ -8,9 +8,13 @@ def setup():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("Running on", device)
 
+    #torch.set_warn_always(False)
+
     model = GPT2LMHeadModel.from_pretrained("gpt2").to(device)
 
     tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+
+    model.generation_config.pad_token_id = tokenizer.eos_token_id
 
     return device, model, tokenizer
 
@@ -22,7 +26,8 @@ def generate(device, model, tokenizer, prompt):
         max_length=100, 
         num_return_sequences=1, 
         no_repeat_ngram_size=2, 
-        early_stopping=True
+        early_stopping=True,
+        num_beams=10
     )
 
     generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
@@ -51,5 +56,6 @@ def main():
         response = generate(device, model, tokenizer, prompt)
         print("-------- OUTPUT --------")
         print(response[len(prompt):])
+        print("------------------------")
 
 main()
