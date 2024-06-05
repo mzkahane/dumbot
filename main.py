@@ -54,6 +54,6 @@ def main():
         await ctx.send("Shutting down...")
         exit()
 
-    bot.run("MTI0Nzk3NzkyNzUyMjUyMTIxMQ.G0iN_e.Ekp2i0jnx-3Ny5EBpTdytmzlPPSL-rowgBjQkI")
+    bot.run(DISCORD_TOKEN)
 
 main()
