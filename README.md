@@ -16,3 +16,19 @@ My third goal is to add more functionality to the bot beyond being a chatbot (di
 ## Disclaimer
 This is a project I have been working on in my free time, to sharpen my LLM and Python skills, and learn about Discord bots. I am sure there are better ways to do some things, but thats the fun of learning!
 The bot is intended to be used among me and my friends. If you'd like to use it in your server, just ask! It is not perfect and probably never will be however... You've been warned!
+
+## Dataset
+discord-data
+
+author:       Jess Fan
+
+title:        Discord Dataset
+
+contact:      jeefan@ucsc.edu, contact@j-fan.ml
+
+year:         2021
+
+howpublished: https://www.kaggle.com/jef1056/discord-data
+
+note: V5
+
